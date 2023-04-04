@@ -1,0 +1,43 @@
+
+{
+    "name": "CoV_AbDab-Seq2seq-Evaluate-Common",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "AntibodyAntigenSeq2SeqDataset",
+        "args":{
+            "seed": 0,
+            "data_dir": "../ProcessedData/generate_seq/14h_antigen_cdr3_seq2seq.csv",
+            "antibody_vocab_dir": "../ProcessedData/vocab/antibody-2-3.csv",
+            "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            "antigen_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            "antibody_tokenizer_name": "common",
+            "antigen_tokenizer_name": "common",
+            "antibody_token_length_list": "2,3",
+            "antigen_token_length_list": "2,3",
+            "antibody_seq_name": "cdr3", 
+            "antigen_seq_name": "antigen",
+            "antibody_max_len": 16,
+            "antigen_max_len": 300,
+
+            "encoder_input": "antigen",
+            "valid_split": 0.1,
+            "shuffle": true
+        }
+    },
+    "origin_seq" : "XXXXX",
+    "origin_light":"XXXXXX",
+    "cdrh3_begin" : 97,
+    "cdrh3_end" : 110,
+    "use_antigen":"XXXXXXXXXX",
+
+    "TransformerVariant": "Antigen-Antibody",
+    "resume": "../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX",
+
+    "trainer": {
+        "save_dir": "../Result_seq2seq_gen/",
+        "verbosity": 2
+    }
+
+}

@@ -1,0 +1,77 @@
+{
+    "name": "Eval-genetation",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "Antibody_Antigen_Dataset_AbDab",
+        "args":{
+            "seed": 2,
+            "batch_size": 16,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "../Result_seq2seq_gen/datasplit/CoV_AbDab-Seq2seq-Evaluate-Common/XXXX_XXXXXX/result.csv",
+            "antibody_vocab_dir": "../ProcessedData/vocab/heavy-2-3.csv",
+            
+            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            
+            "tokenizer_name": "common",
+            
+            "token_length_list": "2,3",
+            
+            "antigen_seq_name":"antigen",
+            "heavy_seq_name":"generated_heavy",
+            "light_seq_name":"generated_light",
+            "label_name":"Label",
+            "heavy_max_len": 140,
+            "light_max_len": 140,
+            "antigen_max_len": 300,
+            
+            "test_antibodys": 1,
+            "shuffle": false
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_AbDab_cnn",
+        "args": {
+            "heavy_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "light_dir": "../Result_covid_light/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "antigen_dir": "facebook/esm2_t30_150M_UR50D",
+            "emb_dim": 256
+        }
+    },
+    "discriminator_resume": "../Result_cov_adbab_s12/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/model_best.pth",
+
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "lr": 8e-6,
+            "weight_decay": 0
+        }
+    },
+    "loss": "bce_withlogits_loss",
+    "metrics": [
+        "accuracy", "recall", "roc_auc"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 15,
+        
+        "save_dir": "../Result_eval/",
+        "save_period": 200,
+        "verbosity": 2,
+        "logging_steps":25,
+        "monitor": "min val_loss",
+        "early_stop": 5,
+
+        "tensorboard": true
+    }
+}

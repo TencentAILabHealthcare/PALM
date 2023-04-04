@@ -1,0 +1,60 @@
+{
+    "name": "ABAG-Finetuning-Seq2seq-Common",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "AntibodyAntigenSeq2SeqDataset",
+        "args":{
+            "seed": 0,
+            "data_dir": "../ProcessedData/CoV_AbDab/CoV-AbDab_only_sars2_filter_only_1_cdr3.csv",
+
+            "antibody_vocab_dir": "../ProcessedData/vocab/antibody-2-3.csv",
+            "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
+            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            "antigen_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            "antibody_tokenizer_name": "common",
+            "antigen_tokenizer_name": "common",
+            "antibody_token_length_list": "2,3",
+            "antigen_token_length_list": "2,3",
+            "antibody_seq_name": "cdr3", 
+            "antigen_seq_name": "antigen",
+            "antibody_max_len": 32,
+            "antigen_max_len": 300,
+
+            "encoder_input": "antigen",
+            "valid_split": 0.01,
+            "shuffle": true
+        }
+    },
+
+    "model": {
+        "TransformerVariant": "Antigen-Antibody",
+        "AntibodyBert_dir": "../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/heavymodel",
+        "AntigenBert_dir": "../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/antigenmodel",
+        "beam_search":{
+            "early_stopping": true,
+            "num_beams": 200,
+            "no_repeat_ngram_size": 2,
+            "num_beam_groups": 10
+        },
+        "resume": "../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX/"
+    },
+
+    "metrics":{
+        "blosum_dir": "../RawData/blosum62.json",
+        "blosum": true
+    },
+
+    "trainer": {
+        "epochs": 5,
+        "batch_size": 4,
+        "save_dir": "../Result_seq2seq/",
+        "save_steps": 200,
+        "lr": 1e-4,
+        "warmup": 0.0,
+        "eval_accumulation_steps": 16,
+        "logging_steps": 200,
+        "eval_steps": 200
+    }
+
+}

@@ -1,0 +1,77 @@
+{
+    "name": "BERT-Finetunning-Antibody-Binding-common-biomap",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "Antibody_Antigen_Dataset_AbDab",
+        "args":{
+            "seed": 3,
+            "batch_size": 8,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "../ProcessedData/BioMap/biomap.csv",
+            "antibody_vocab_dir": "../ProcessedData/vocab/heavy-2-3.csv",
+            
+            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            
+            "tokenizer_name": "common",
+            
+            "token_length_list": "2,3",
+            
+            "antigen_seq_name": "antigen_seq",
+            "heavy_seq_name": "antibody_seq_a",
+            "light_seq_name": "antibody_seq_b",
+            "label_name": "delta_g",
+            "heavy_max_len": 170,
+            "light_max_len": 170,
+            "antigen_max_len": 512,
+
+            "test_antibodys": 1,
+            "shuffle": true
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_biomap_cnn",
+        "args": {
+            "heavy_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "light_dir": "../Result_covid_light/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "antigen_dir": "facebook/esm2_t30_150M_UR50D",
+            "emb_dim": 256
+        }
+    },
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "BERT_lr":2e-5,
+            "lr": 1e-4,
+            "weight_decay": 0.0001
+        }
+    },
+    "loss": "mse_loss",
+    "is_regression": true,
+    "metrics": [
+        "mse","get_spearman","get_pearson"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 50,
+        
+        "save_dir": "../Result_biomap/",
+        "save_period": 200,
+        "verbosity": 2,
+        "logging_steps":25,
+        "monitor": "max val_get_pearson",
+        "early_stop": 15,
+
+        "tensorboard": true
+    }
+}

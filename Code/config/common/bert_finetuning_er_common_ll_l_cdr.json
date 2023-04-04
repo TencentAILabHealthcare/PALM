@@ -1,0 +1,76 @@
+{
+    "name": "BERT-Finetunning-Antibody-Binding-common-14l",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "Antibody_Antigen_Dataset_4_input",
+        "args":{
+            "seed": 1,
+            "batch_size": 128,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "../ProcessedData/LL_light/df_14l_l_cdr.csv",
+            "antibody_vocab_dir": "../ProcessedData/vocab/heavy-2-3.csv",
+            
+            "antibody_tokenizer_dir": "../Result_covid_light/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            
+            "antibody_tokenizer_name": "common",
+            
+            "antibody_token_length_list": "2,3",
+            
+            "antibody_seq_a_name" : "cdr1",
+            "antibody_seq_b_name" : "cdr2",
+    
+            "antibody_seq_c_name" : "cdr3",
+            "receptor_seq_name" : "light",
+            
+            "cdr_max_len": 18,
+            "ab_max_len": 120,
+            
+            "test_antibodys": 1,
+            "shuffle": true
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_4_input_cnn",
+        "args": {
+            "PretrainModel_dir": "../Result_covid_light/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "emb_dim": 768
+        }
+    },
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "BERT_lr":2e-5,
+            "lr": 1e-4,
+            "weight_decay": 0.0001
+        }
+    },
+    "loss": "mse_loss",
+    "is_regression": true,
+    "metrics": [
+        "mse","get_spearman","get_pearson"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 25,
+        
+        "save_dir": "../Result_ll_l_cdr/",
+        "save_period": 200,
+        "verbosity": 2,
+        "logging_steps":25,
+        "monitor": "max val_get_pearson",
+        "early_stop": 15,
+
+        "tensorboard": true
+    }
+}

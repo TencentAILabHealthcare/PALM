@@ -1,0 +1,77 @@
+{
+    "name": "BERT-Finetunning-Antibody-Binding-common-abdab",
+    "n_gpu": 1,
+
+    "data_loader": {
+        "type": "Antibody_Antigen_Dataset_AbDab",
+        "args":{
+            "seed": 7,
+            "batch_size": 16,
+            "validation_split": 0.1,
+            "test_split": 0.1,
+            "num_workers": 8,
+            "data_dir": "../ProcessedData/CoV_AbDab/CoV-AbDab_only_sars2_filter.csv",
+            "antibody_vocab_dir": "../ProcessedData/vocab/heavy-2-3.csv",
+            
+            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            
+            "tokenizer_name": "common",
+            
+            "token_length_list": "2,3",
+            
+            "antigen_seq_name": "antigen",
+            "heavy_seq_name": "Heavy",
+            "light_seq_name": "Light",
+            
+            "heavy_max_len": 140,
+            "light_max_len": 140,
+            "antigen_max_len": 300,
+            
+            "test_antibodys": 1,
+            "shuffle": true
+        }
+    },
+
+    "arch": {
+        "type": "BERTBinding_AbDab_cnn",
+        "args": {
+            "heavy_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "light_dir": "../Result_covid_light/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX/",
+            "antigen_dir": "facebook/esm2_t30_150M_UR50D",
+            "emb_dim": 256
+        }
+    },
+
+    "optimizer": {
+        "type": "AdamW",
+        "args":{
+            "BERT_lr":2e-5,
+            "lr": 1e-4,
+            "weight_decay": 0.0001
+        }
+    },
+    "loss": "bce_withlogits_loss",
+    "is_regression": false,
+    "metrics": [
+        "accuracy", "recall", "roc_auc"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 15,
+        
+        "save_dir": "../Result_cov_adbab/",
+        "save_period": 200,
+        "verbosity": 2,
+        "logging_steps":25,
+        "monitor": "min val_loss",
+        "early_stop": 5,
+
+        "tensorboard": true
+    }
+}
