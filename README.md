@@ -2,6 +2,11 @@
 
 ## Hardware requirements
 `PALM` package requires only a standard computer with enough RAM and a NVIDIA GPU to support operations.
+We ran the demo using the following specs:
+
++ CPU: 10 cores, 2.5 GHz/core
++ RAM: 40 GB
++ GPU: NVIDIA TESLA V100
 ## System requirements
 This tool is supported for Linux. The tool has been tested on the following system:
 
