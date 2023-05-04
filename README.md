@@ -1,5 +1,5 @@
 # PALM: Pre-trained Antibody generative large Language Model
-
+![image](https://github.com/TencentAILabHealthcare/PALM/blob/main/1.png)
 ## Hardware requirements
 `PALM` package requires only a standard computer with enough RAM and a NVIDIA GPU to support operations.
 We ran the demo using the following specs:
