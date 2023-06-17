@@ -36,8 +36,7 @@
             "num_beams": 200,
             "no_repeat_ngram_size": 2,
             "num_beam_groups": 10
-        },
-        "resume": "../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX/"
+        }
     },
 
     "metrics":{

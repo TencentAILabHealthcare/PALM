@@ -7,7 +7,7 @@
         "type": "AntibodyAntigenSeq2SeqDataset",
         "args":{
             "seed": 0,
-            "data_dir": "../ProcessedData/generate_seq/14h_antigen_cdr3_seq2seq.csv",
+            "data_dir": "../ProcessedData/CoV_AbDab/CoV-AbDab_only_sars2_filter_only_1_cdr3.csv",
             "antibody_vocab_dir": "../ProcessedData/vocab/antibody-2-3.csv",
             "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
             "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
