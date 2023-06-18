@@ -65,7 +65,9 @@ python bert_finetuning_seq2seq_main.py --config ./config/common/bert_finetuning_
 After the training, the trained PALM will be saved in the `../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX/` folder.
 
 ### 4. Generate artificial antibodies
-Before running the generation task, please copy the **absolute path** of PLAM `../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX/` to "resume", copy the absolute path of `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`to "antibody_tokenizer_dir" and "antigen_tokenizer_dir". And set "origin_seq", "origin_light", "cdrh3_begin", "cdrh3_end" and "use_antigen" in the config file `seq2seq_generate.json`. The above path needs to be an absolute path.
+Before running the generation task, please copy the **absolute path** of PLAM `../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX/` to "resume", copy the absolute path of `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`to "antibody_tokenizer_dir" and "antigen_tokenizer_dir" in the config file `seq2seq_generate.json`. The above path needs to be an absolute path.
+
+Optionally, you can customize "origin_seq", "origin_light", "cdrh3'begin", "cdrh3_end", and "use_antigen" in the config file `seq2seq_generate.json`, which represent the original heavy chain, the original light chain, the index of the beginning and end of the cdrh3 region, and the sequence of the antigen, respectively.
 
 The generation command for PALM is:
 ```bash
@@ -75,7 +77,7 @@ python generate_antibody.py --config ./config/common/seq2seq_generate.json
 After the running, the artificial antibody will be saved in the `../Result_seq2seq_gen/datasplit/CoV_AbDab-Seq2seq-Evaluate-Common/XXXX_XXXXXX/result.csv`.
 
 ### 5. Evaluate artificial antibodies
-After generating antibodies, A2binder can be used to evaluate the affinity probability or affinity of the generated antibodies. Before evaluating, please copy the **absolute path** of A2binder `../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX` to "discriminator_resume", replace the "heavy_dir" using `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`, replace the "light_dir"  using `../Result_covid_light/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`, and replace "antibody_tokenizer_dir" to `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`  in the `bert_eval_generation.json` and change the "data_dir" to `../Result_seq2seq_gen/datasplit/CoV_AbDab-Seq2seq-Evaluate-Common/XXXX_XXXXXX/result.csv`. The above path needs to be an absolute path.
+After generating antibodies, A2binder can be used to evaluate the affinity probability or affinity of the generated antibodies. Before evaluating, please copy the **absolute path** of A2binder `../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/model_best.pth` to "discriminator_resume", replace the "heavy_dir" using `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`, replace the "light_dir"  using `../Result_covid_light/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`, and replace "antibody_tokenizer_dir" to `../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX`  in the `bert_eval_generation.json` and change the "data_dir" to `../Result_seq2seq_gen/datasplit/CoV_AbDab-Seq2seq-Evaluate-Common/XXXX_XXXXXX/result.csv`. The above path needs to be an absolute path.
 
 The evalation command for PALM is:
 ```bash
