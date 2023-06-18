@@ -298,7 +298,7 @@ class Antibody_Antigen_Dataset_AbDab(BaseDataLoader):
             tokenizer_dir=antibody_tokenizer_dir)
 
 
-        esm_dir = '../esm2/esm2_150m/'
+        esm_dir = 'facebook/esm2_t30_150M_UR50D'
         
         self.antigen_tokenizer = AutoTokenizer.from_pretrained(esm_dir,cache_dir = "../esm2/esm2_150m/",max_len = self.antigen_max_len)
         
