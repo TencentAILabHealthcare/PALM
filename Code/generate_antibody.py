@@ -78,9 +78,7 @@ def main(config):
 
     if model_input == 'antigen':
         logger.info('The input is antigen, generate antibody sequences.')
-        logger.info('To generate {} sequences.'.format(
-                len(set(use_dataset['antigen'])) * 25
-            ))
+
         ###
         # use = ["PDVDLGDISGINAS"]
 
