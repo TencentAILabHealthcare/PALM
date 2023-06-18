@@ -10,8 +10,8 @@
             "data_dir": "../ProcessedData/CoV_AbDab/CoV-AbDab_only_sars2_filter_only_1_cdr3.csv",
             "antibody_vocab_dir": "../ProcessedData/vocab/antibody-2-3.csv",
             "antigen_vocab_dir": "../ProcessedData/vocab/beta-2-3.csv",
-            "antibody_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
-            "antigen_tokenizer_dir": "../Result_covid/checkpoints/BERT-Beta-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+            "antibody_tokenizer_dir": "/data0/hhh/PALM-main/Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0618_072623",
+            "antigen_tokenizer_dir": "/data0/hhh/PALM-main/Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/0618_072623",
             "antibody_tokenizer_name": "common",
             "antigen_tokenizer_name": "common",
             "antibody_token_length_list": "2,3",
@@ -26,14 +26,14 @@
             "shuffle": true
         }
     },
-    "origin_seq" : "XXXXX",
-    "origin_light":"XXXXXX",
+    "origin_seq" : "QVQLVQSGAEVKKPGSSVNVSCKASGGTLNIYTFSWVRQAPGQGLEWVGTIVPLVGKANYPHKFQGRVTITADKSTSTVNMELSSLRSEDTAVYYCASEVLDNLRDGYNFWGQGTLVTVSS",
+    "origin_light":"DIQMTQSPSSLSASVGDRVTITCRASQSVSSYLNWYQQKPGKAPKLLIYAVSSLQSGVPSRFSGSGSGTDFTLTISSLQPEDFATYYCQQTYNTLTFGGGTKVEIK",
     "cdrh3_begin" : 97,
     "cdrh3_end" : 110,
-    "use_antigen":"XXXXXXXXXX",
+    "use_antigen":"RVQPTESIVRFPNITNLCPFHEVFNATTFASVYAWNRKRISNCVADYSVIYNFAPFFAFKCYGVSPTKLNDLCFTNVYADSFVIRGNEVSQIAPGQTGNIADYNYKLPDDFTGCVIAWNSNKLDSKPSGNYNYLYRLFRKSKLKPFERDISTEIYQAGNKPCNGVAGSNCYSPLQSYGFRPTYGVGHQPYRVVVLSFELLHAPATVCGPKKSTNLVKNKCVNF",
 
     "TransformerVariant": "Antigen-Antibody",
-    "resume": "../Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/XXXX_XXXXXX",
+    "resume": "/data0/hhh/PALM-main/Result_seq2seq/checkpoints/ABAG-Finetuning-Seq2seq-Common/0618_080658",
 
     "trainer": {
         "save_dir": "../Result_seq2seq_gen/",
