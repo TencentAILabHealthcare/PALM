@@ -33,7 +33,7 @@
         "AntigenBert_dir": "../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/antigenmodel",
         "beam_search":{
             "early_stopping": true,
-            "num_beams": 200,
+            "num_beams": 20,
             "no_repeat_ngram_size": 2,
             "num_beam_groups": 10
         }
