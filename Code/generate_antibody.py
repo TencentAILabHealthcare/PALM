@@ -85,7 +85,7 @@ def main(config):
         # XBB:
         use = [config["use_antigen"]]
         
-        result_dict = {'antigen': [], 'generated_single_chain': []}
+        result_dict = {'Antigen': [], 'Generated_CDR_H3': []}
         # for antigen in tqdm(list(set(use_dataset['antigen']))):
         for antigen in tqdm(use):
             predict_seq = seq_generate(input_seq=antigen, 
@@ -99,12 +99,12 @@ def main(config):
                                        gen_max_len = 18,
                                        gen_min_len = 14)
 
-            result_dict['antigen'] += [antigen] * len(predict_seq)
-            result_dict['generated_single_chain'] += predict_seq
+            result_dict['Antigen'] += [antigen] * len(predict_seq)
+            result_dict['Generated_CDR_H3'] += predict_seq
     
     else:
         logger.info('The input is antibody, generate antigen sequences.')
-        result_dict = {'single_chain': [], 'generated_antigen': []}
+        result_dict = {'CDR_H3': [], 'Generated_Antigen': []}
         
         antigen_list = list(set(use_dataset['antigen']))
         used_antigen_list = []
@@ -133,8 +133,8 @@ def main(config):
                                        beams=10,
                                        gene_num=5)
 
-            result_dict['single_chain'] += [single_chain] * len(predict_seq)
-            result_dict['generated_antigen'] += predict_seq
+            result_dict['CDR_H3'] += [single_chain] * len(predict_seq)
+            result_dict['Generated_Antigen'] += predict_seq
 
     result_df = pd.DataFrame(result_dict)
     # result_df.to_csv(join(config._log_dir, 'result.csv'), index=False)
@@ -147,12 +147,12 @@ def main(config):
     orinig_light = config["origin_light"]
     gen_heavy_list = []
     light_list = []
-    for c in result_df["generated_single_chain"]:
+    for c in result_df["Generated_CDR_H3"]:
         gen_antibody = origin_seq[:cdrh3_begin] + c + origin_seq[cdrh3_end:]
         gen_heavy_list.append(gen_antibody)
         light_list.append(orinig_light)
-    result_df["generated_heavy"] = gen_heavy_list
-    result_df["generated_light"] = light_list
+    result_df["Heavy_Chain"] = gen_heavy_list
+    result_df["Light_Chain"] = light_list
     result_df.to_csv(join(config._log_dir, 'result.csv'), index=False)
 
 
