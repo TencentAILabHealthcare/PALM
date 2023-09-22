@@ -29,8 +29,8 @@
 
     "model": {
         "TransformerVariant": "Antigen-Antibody",
-        "AntibodyBert_dir": "../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/heavymodel",
-        "AntigenBert_dir": "../Result_cov_adbab/checkpoints/BERT-Finetunning-Antibody-Binding-common-abdab/XXXX_XXXXXX/antigenmodel",
+        "AntibodyBert_dir": "../Result_covid_heavy/checkpoints/BERT-Pretrain-common-MAA-NGPUs/XXXX_XXXXXX",
+        "AntigenBert_dir": "facebook/esm2_t30_150M_UR50D",
         "beam_search":{
             "early_stopping": true,
             "num_beams": 20,
