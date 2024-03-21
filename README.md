@@ -1,4 +1,4 @@
-# PALM-H3: Pre-trained Antibody generative large Language Model
+# Pre-trained Antibody generative large Language Model
 ![image](https://github.com/TencentAILabHealthcare/PALM/blob/main/1.png)
 ## Hardware requirements
 `PALM-H3` package requires only a standard computer with enough RAM and a NVIDIA GPU to support operations.
