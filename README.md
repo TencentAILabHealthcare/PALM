@@ -85,6 +85,8 @@ The evalation command for PALM-H3 is:
 ```bash
 python eval_generate_seq.py --config ./config/common/bert_eval_generation.json
 ```
+The model fine-tuned on affinity data retrieved from the SAbDab database is stored in https://zenodo.org/records/17090473. By replacing the ```discriminator_resume``` in ```bert_eval_generation.json``` with this model, predictions can be generated using the command provided above.
+
 ### Expected output
 After the running, the evalation result will be saved in the `../Result_eval/datasplit/Eval-genetation/XXXX_XXXXXX/test_result.csv` 
 
